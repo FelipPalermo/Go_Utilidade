@@ -21,6 +21,8 @@ type jogador struct {
 
 func CriarJogador() {
 
+	/// ----- VARIAVEIS ----- ///
+
 	// input é a variavel responsavel por fazer a entrada
 	// do que o usuario escreve
 	input := bufio.NewReader(os.Stdin)
@@ -36,15 +38,28 @@ func CriarJogador() {
 	fmt.Printf("Insira a classe do seu personagem :%s", "\n")
 	Classe, _ = input.ReadString('\n')
 
-	// aqui estamos separando a string em uma lista de string
-	// usando como parametro o espaco " "
-	arch := strings.Split(Nome, " ")
+	/// ----- GERANDO ARQUIVO PELO NOME -----///
 
-	// arquivo nos retorna o resultado da concatenacao entre
-	// arch[0], o primeiro nome digitado pelo usuario
-	// + o conteudo de arquivo ".json"
-	arquivo = arch[0] + arquivo
+	// strings.Contains vai procurar se existe um espaco
+	// caso exista ele separa o nome por espacos
+	if strings.Contains(Nome, " ") {
 
+		// aqui estamos separando a string em uma lista de string
+		// usando como parametro o espaco " "
+		arch := strings.Split(Nome, " ")
+
+		// arquivo nos retorna o resultado da concatenacao entre
+		// arch[0], o primeiro nome digitado pelo usuario
+		// + o conteudo de arquivo ".json"
+		arquivo = arch[0] + arquivo
+
+		// Caso nao tenha nenhum espaco
+		// O programa adiciona Nome + arquivo normalmente
+	} else {
+
+		arquivo = Nome[:len(Nome)-2] + arquivo
+
+	}
 	holder := jogador{
 
 		// Aqui estamos excluindo 2 caracteres do final da nossa string
